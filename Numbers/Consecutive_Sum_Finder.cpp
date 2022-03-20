@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_DEPRECATE
+
 #include <iostream>
 #include <stdio.h>
 #include <string>
@@ -15,21 +17,25 @@ int main()
 	bool answerFound = false;
 
 
-	int i, j;
+	int i, j, sum;
 
-	for(i = 1; i < num; i++)
+	for(i = 1; i <= num / 2 + 1; i++)
 	{
-		for (j = i; j < num; j++)
+		for (j = i + 1; j <= num / 2 + 1; j++)
 		{
-			if (ReturnSum(i, j) > num)
-			{
-				break;
-			}
-			else if (ReturnSum(i, j) == num)
+			sum = ReturnSum(i - 1, j);
+
+			if (sum == num)
 			{
 				PrintAnswer(i, j, num);
 
 				answerFound = true;
+
+				break;
+			}
+			else if (sum  > num)
+			{
+				break;
 			}
 		}
 	}
@@ -44,13 +50,9 @@ int main()
 
 int ReturnSum(int start, int end)
 {
-	int i;
 	int sum = 0;
 
-	for (i = start; i <= end; i++)
-	{
-		sum += i;
-	}
+	sum = (end * (end + 1) / 2) - (start * (start + 1) / 2);
 
 	return sum;
 }
