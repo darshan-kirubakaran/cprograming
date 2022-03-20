@@ -1,38 +1,36 @@
 #include <iostream>
+#include <stdio.h>
 #include <string>
 
-void PrintArray(int answers[]);
-int CheckSumOfArray(int numbers[]);
-void ResetArray(int answer[]);
-
-int const num = 15;
+void PrintAnswer(int start, int end, int num);
+int ReturnSum(int start, int end);
 
 int main()
 {
-	int answers[num];
+	int num = 0;
+
+	printf("Entre a number: ");
+	scanf("%d", &num);
 
 	bool answerFound = false;
 
-	ResetArray(answers);
 
-	int i;
+	int i, j;
 
 	for(i = 1; i < num; i++)
 	{
-		if (CheckSumOfArray(answers) > num)
+		for (j = i; j < num; j++)
 		{
-			ResetArray(answers);
-		}
-		else if(CheckSumOfArray(answers) == num)
-		{
-			PrintArray(answers);
-			ResetArray(answers);
+			if (ReturnSum(i, j) > num)
+			{
+				break;
+			}
+			else if (ReturnSum(i, j) == num)
+			{
+				PrintAnswer(i, j, num);
 
-			answerFound = true;
-		}
-		else
-		{
-			answers[i - 1] = i;
+				answerFound = true;
+			}
 		}
 	}
 
@@ -44,40 +42,28 @@ int main()
 	return 0;
 }
 
-void ResetArray(int answers[])
-{
-	int i = 0;
-
-	for (i = 0; i < num; i++)
-	{
-		answers[i] = 0;
-	}
-}
-
-int CheckSumOfArray(int numbers[])
+int ReturnSum(int start, int end)
 {
 	int i;
 	int sum = 0;
 
-	for (i = 0; i < num; i++)
+	for (i = start; i <= end; i++)
 	{
-		sum += numbers[i];
+		sum += i;
 	}
 
 	return sum;
 }
 
-void PrintArray(int answers[])
+void PrintAnswer(int start, int end, int num)
 {
 	int i;
 
-	for(i = 0; i < num; i++)
+	for (i = start; i <= end; i++)
 	{
-		if (answers[i] == 0) { continue; }
+		printf("%d ", i);
 
-		printf("%d ", answers[i]);
-
-		if (i == num - 1) { break; }
+		if (i == end) { break; }
 
 		printf("+ ");
 	}
